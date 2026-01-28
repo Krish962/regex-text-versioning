@@ -17,7 +17,7 @@ import re
 
 def get_line_number(text, index):
     """
-    This function returns the line number corresponding to a character index. 
+    returns the line number corresponding to a character index. 
     """
 
     return text.count("\n", 0, index) + 1
@@ -27,7 +27,7 @@ def get_line_number(text, index):
 
 def choose_occurrence_with_context(text, pattern):
     """
-    This function shows all the matches for a regex pattern and lets us pick which one to edit,
+    shows all the matches for a regex pattern and lets us pick which one to edit,
     showing the context around each match to make our selection easier.
     """
 
@@ -61,7 +61,7 @@ def choose_occurrence_with_context(text, pattern):
 
 def apply_command(text, command):
     """
-    This function applies a single edit (replace, insert, delete) based on the command provided.
+    applies a single edit (replace, insert, delete) based on the command provided.
     It updates the text accordingly and returns the modified version.
     """
 
@@ -100,8 +100,8 @@ def apply_command(text, command):
 
 def reconstruct_document_at_time(original_text, command_stack, target_time):
     """
-    Rebuilds the document by applying all commands up to the specified timestamp. 
-    It’s like rolling back the changes to a specific point in time.
+    rebuilds the document by applying all commands up to the specified timestamp. 
+    like rolling back the changes to a specific point in time.
     """
     
     current_text = original_text
@@ -140,7 +140,7 @@ def main():
     while True:
         print("\n==============================")
         print("1. Edit document")
-        print("2. Revert to old state")
+        print("2. Revert to an old state")
         print("3. Exit")
         print("==============================")
 
