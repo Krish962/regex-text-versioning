@@ -1,22 +1,43 @@
+"""
+Design Lab Project
+Title: Regex-based Text Versioning System
+
+This program allows editing a text document using regex-based commands
+and supports reverting the document to previous states using timestamps.
+
+
+"""
+
+
+
 import re
 
 
 
-# Get line number from character index
+
 def get_line_number(text, index):
+    """
+    This function returns the line number corresponding to a character index. 
+    """
+
     return text.count("\n", 0, index) + 1
 
 
 
-# Show matches with context and return chosen occurrence
+
 def choose_occurrence_with_context(text, pattern):
+    """
+    This function shows all the matches for a regex pattern and lets us pick which one to edit,
+    showing the context around each match to make our selection easier.
+    """
+
     matches = list(re.finditer(pattern, text))
 
     if not matches:
         print("No matches found.")
         return None
 
-    CONTEXT = 60
+    CONTEXT = 30
     print("\nFound the following matches:\n")
 
     for i, m in enumerate(matches, start=1):
@@ -37,8 +58,13 @@ def choose_occurrence_with_context(text, pattern):
     return choice
 
 
-# Function to make Edits
+
 def apply_command(text, command):
+    """
+    This function applies a single edit (replace, insert, delete) based on the command provided.
+    It updates the text accordingly and returns the modified version.
+    """
+
     pattern = command["pattern"]
     occurrence = command["occurrence"]
     operation = command["operation"]
@@ -71,8 +97,13 @@ def apply_command(text, command):
     return text[:start] + new_text + text[end:]
 
 
-# Revert to Time T
+
 def reconstruct_document_at_time(original_text, command_stack, target_time):
+    """
+    Rebuilds the document by applying all commands up to the specified timestamp. 
+    It’s like rolling back the changes to a specific point in time.
+    """
+    
     current_text = original_text
 
     for command in command_stack:
@@ -164,7 +195,7 @@ def main():
                 print("No edits yet.")
                 continue
 
-            print(f"\nAvailable timestamps: 1 to {timestamp}")
+            print(f"\nAvailable timestamps: 0 to {timestamp}")
             target_time = int(input("Enter timestamp to revert to: "))
 
             reverted = reconstruct_document_at_time(
@@ -183,6 +214,9 @@ def main():
                 command_stack = [
                     cmd for cmd in command_stack if cmd["timestamp"] <= target_time
                 ]
+
+            print("\nCurrent Document:\n")
+            print(current_document)
 
         # EXIT
         elif choice == "3":
